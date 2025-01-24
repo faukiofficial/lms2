@@ -13,6 +13,7 @@ import StudentsEnrolled from "./pages/educator/StudentsEnrolled";
 import Navbar from "./components/student/Navbar";
 
 function App() {
+
   const isEducatorRoute = useMatch("/educator/*");
   return (
     <div className="min-h-screen bg-white text-default">

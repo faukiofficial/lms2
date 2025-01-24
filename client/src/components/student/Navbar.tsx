@@ -1,12 +1,14 @@
-import React from "react";
 import { assets } from "../../assets/assets.ts";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import { UserButton, useUser, useClerk } from "@clerk/clerk-react";
+import { useAppContext } from "../../context/AppContext.tsx";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const { isEducator, setIsEducator } = useAppContext();
+  const navigate = useNavigate();
   const isCourseListPage = window.location.pathname.includes("/course-list");
 
   const { openSignIn } = useClerk();
@@ -17,17 +19,20 @@ const Navbar = (props: Props) => {
         isCourseListPage ? "bg-white" : "bg-cyan-100/70"
       }`}
     >
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
       <img
         src={assets.logo}
         alt="logo"
-        className="w-10 lg:w-14 cursor-pointer"
+        className="w-10 lg:w-14"
       />
+      <span className="text-2xl md:text-3xl font-bold text-blue-500">Learny</span>
+      </div>
 
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user && (
             <>
-              <button className="cursor-pointer">Become Educator</button> |{" "}
+              <button onClick={() => navigate('/educator')} className="cursor-pointer">{ isEducator ? "Educator Dashboard" : "Become Educator" }</button> |{" "}
               <Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}
@@ -48,7 +53,7 @@ const Navbar = (props: Props) => {
         <div className="flex items-center gap-1 sm:gap-2 max-sm:text-xs">
           {user && (
             <>
-              <button className="cursor-pointer">Become Educator</button> |{" "}
+              <button onClick={() => navigate('/educator')} className="cursor-pointer">{ isEducator ? "Educator Dashboard" : "Become Educator" }</button> |{" "}
               <Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}

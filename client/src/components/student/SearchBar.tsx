@@ -30,7 +30,7 @@ const SearchBar: React.FC<Props> = ({ data }) => {
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white rounded md:px-10 px-7 md:py-3 py-2 mx-1"
+        className="bg-blue-500 text-white rounded md:px-10 px-7 md:py-3 py-2 mx-1 cursor-pointer"
       >
         Search
       </button>
