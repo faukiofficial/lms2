@@ -23,6 +23,7 @@ export interface ICuorse {
   isPublished?: boolean;
   discount?: number;
   courseThumbnail?: string;
+  enrolledStudents?: string[];
   educator: {
     name: string;
   };

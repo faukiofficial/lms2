@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+html, body {
+  position: relative;
+  z-index: 0;
+  background: white; /* Atur sesuai kebutuhan */
+}

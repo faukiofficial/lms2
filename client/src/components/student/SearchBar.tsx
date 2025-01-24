@@ -29,6 +29,7 @@ const SearchBar: React.FC = () => {
         type="submit"
         className="bg-blue-500 text-white rounded md:px-10 px-7 md:py-2 py-1 mx-1 cursor-pointer"
         onClick={() => setSearchQuery(tempQuery)}
+        disabled={!tempQuery && !searchQuery}
       >
         Search
       </button>
