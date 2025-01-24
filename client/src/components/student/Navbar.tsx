@@ -19,21 +19,27 @@ const Navbar = (props: Props) => {
         isCourseListPage ? "bg-white" : "bg-cyan-100/70"
       }`}
     >
-      <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-      <img
-        src={assets.logo}
-        alt="logo"
-        className="w-10 lg:w-14"
-      />
-      <span className="text-2xl md:text-3xl font-bold text-blue-500">Learny</span>
+      <div
+        className="flex items-center gap-2 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        <img src={assets.logo} alt="logo" className="w-10 lg:w-14" />
+        <span className="text-2xl md:text-3xl font-bold text-blue-500">
+          Learny
+        </span>
       </div>
 
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user && (
             <>
-              <button onClick={() => navigate('/educator')} className="cursor-pointer">{ isEducator ? "Educator Dashboard" : "Become Educator" }</button> |{" "}
-              <Link to="/my-enrollments">My Enrollments</Link>
+              <button
+                onClick={() => navigate("/educator")}
+                className="cursor-pointer"
+              >
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              | <Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}
         </div>
@@ -53,8 +59,13 @@ const Navbar = (props: Props) => {
         <div className="flex items-center gap-1 sm:gap-2 max-sm:text-xs">
           {user && (
             <>
-              <button onClick={() => navigate('/educator')} className="cursor-pointer">{ isEducator ? "Educator Dashboard" : "Become Educator" }</button> |{" "}
-              <Link to="/my-enrollments">My Enrollments</Link>
+              <button
+                onClick={() => navigate("/educator")}
+                className="cursor-pointer"
+              >
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              | <Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}
         </div>

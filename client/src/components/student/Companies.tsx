@@ -1,9 +1,7 @@
 import React from 'react'
 import { assets } from '../../assets/assets'
 
-type Props = {}
-
-const Companies = (props: Props) => {
+const Companies: React.FC = () => {
   return (
     <div className='pt-16'>
         <p className='text-gray-600 text-base md:text-lg text-center font-semibold'>Trusted by learners from</p>
