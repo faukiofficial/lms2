@@ -1,11 +1,9 @@
-import { useAppContext } from "../../context/AppContext";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
+import { useAppContext } from "../../context/useAppContext";
 
-type Props = {};
-
-const TestimonialSection = (props: Props) => {
+const TestimonialSection : React.FC = () => {
   const { testimonials } = useAppContext();
   return (
     <div className="py-16 md:px-30 px-8">

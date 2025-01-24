@@ -1,9 +1,10 @@
 import React from "react";
-import { ICuorse, useAppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
+import { useAppContext } from "../../context/useAppContext";
+import { ICuorse } from "../../context/types";
 
 type Props = {
   course: ICuorse;

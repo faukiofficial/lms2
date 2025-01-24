@@ -1,9 +1,7 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 
-type Props = {};
-
-const Hero = (props: Props) => {
+const Hero : React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full md:pt-36 pt-20 px-7 md:px-0 space-y-7 text-center bg-gradient-to-b from-cyan-100/70">
       <h1 className="md:text-4xl text-2xl font-bold text-gray-800 max-w-3xl mx-auto">

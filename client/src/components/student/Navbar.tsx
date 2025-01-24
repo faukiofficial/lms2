@@ -2,12 +2,11 @@ import { assets } from "../../assets/assets.ts";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import { UserButton, useUser, useClerk } from "@clerk/clerk-react";
-import { useAppContext } from "../../context/AppContext.tsx";
+import { useAppContext } from "../../context/useAppContext.ts";
 
-type Props = {};
 
-const Navbar = (props: Props) => {
-  const { isEducator, setIsEducator } = useAppContext();
+const Navbar : React.FC = () => {
+  const { isEducator } = useAppContext();
   const navigate = useNavigate();
   const isCourseListPage = window.location.pathname.includes("/course-list");
 

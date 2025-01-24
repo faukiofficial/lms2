@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useAppContext } from "../../context/AppContext";
 import CourseCard from "./CourseCard";
 import React from "react";
+import { useAppContext } from "../../context/useAppContext";
 
 const CourseSection: React.FC = () => {
   const { allCourses } = useAppContext();
