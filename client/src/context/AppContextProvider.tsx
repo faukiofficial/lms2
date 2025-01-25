@@ -17,6 +17,7 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
   const [isEducator, setIsEducator] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>(input ? input : "");
   const [tempQuery, setTempQuery] = useState<string>("");
+  const [enrolledCourses, setEnrolledCourses] = useState<ICuorse[]>([]);
 
   const fetchAllCourses = async (): Promise<void> => {
     setAllCourses(dummyCourses as ICuorse[]);
@@ -71,9 +72,14 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     return lectures;
   }
 
+  const fetchUserEnrolledCourses = async (): Promise<void> => {
+    setEnrolledCourses(dummyCourses as ICuorse[]);
+  };
+
   useEffect(() => {
     fetchAllCourses();
     fetchTestimonials();
+    fetchUserEnrolledCourses();
   }, []);
 
   const value = {
@@ -89,7 +95,8 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     setTempQuery,
     calculateChapterTime,
     calculateCourseDuration,
-    totalLecturesInCourse
+    totalLecturesInCourse,
+    enrolledCourses
   };
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

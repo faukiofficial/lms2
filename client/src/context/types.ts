@@ -57,4 +57,5 @@ export interface AppContextType {
   calculateChapterTime: (chapter: ICourseContent) => string;
   calculateCourseDuration: (course: ICuorse) => string;
   totalLecturesInCourse: (course: ICuorse) => number;
+  enrolledCourses: ICuorse[];
 }

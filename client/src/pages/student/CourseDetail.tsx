@@ -55,7 +55,7 @@ const CourseDetail: React.FC = () => {
   return (
     <>
       {course ? (
-        <div className="relative flex md:flex-row flex-col-reverse gap-10 items-start justify-between px-4 sm:px-10 md:px-14 lg:px-30 md:pt-20 pt-15 text-left">
+        <div className="relative flex md:flex-row flex-col-reverse gap-10 items-start justify-between px-4 sm:px-10 md:px-14 lg:px-30 md:pt-20 pt-10 text-left">
           <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-100/70"></div>
 
           {/* left */}
@@ -249,7 +249,7 @@ const CourseDetail: React.FC = () => {
                   {currency}{" "}
                   {(course.discount
                     ? course.coursePrice * ((100 - course.discount) / 100)
-                    : course.coursePrice).toFixed(2)}
+                    : course.coursePrice || 0).toFixed(2)}
                 </p>
                 {course.discount && (
                   <div className="flex items-center gap-2">
