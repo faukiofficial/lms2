@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { AppContext } from "./AppContext";
-import { ICuorse, ITestimonialData } from "./types";
+import { ICourseContent, ICuorse, ITestimonialData } from "./types";
 import { dummyCourses, dummyTestimonial } from "../assets/assets";
 import { useParams } from "react-router-dom";
+import humanizeDuration from "humanize-duration";
 
 export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
   props
@@ -38,6 +39,38 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     return Number(averageRating.toFixed(1));
   };
 
+  const calculateChapterTime = (chapter : ICourseContent) => {
+    let time = 0;
+
+    chapter.chapterContent?.forEach((content) => {
+      time += content.lectureDuration || 0;
+    })
+
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+  }
+
+  const calculateCourseDuration = (course : ICuorse) => {
+    let time = 0;
+
+    course.courseContent?.forEach((chapter) => {
+      chapter.chapterContent?.forEach((content) => {
+        time += content.lectureDuration || 0;
+      })
+    })
+
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+  }
+
+  const totalLecturesInCourse = (course : ICuorse) => {
+    let lectures = 0;
+
+    course.courseContent?.forEach((chapter) => {
+      lectures += chapter.chapterContent?.length || 0;
+    })
+
+    return lectures;
+  }
+
   useEffect(() => {
     fetchAllCourses();
     fetchTestimonials();
@@ -54,6 +87,9 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     setSearchQuery,
     tempQuery,
     setTempQuery,
+    calculateChapterTime,
+    calculateCourseDuration,
+    totalLecturesInCourse
   };
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

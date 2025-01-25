@@ -2,7 +2,7 @@
 export interface IChapterContent {
   lectureId: string;
   lectureTitle: string;
-  lectureDuraton?: number;
+  lectureDuration?: number;
   lectureUrl: string;
   isPreviewFree: boolean;
   lectureOrder: number;
@@ -54,4 +54,7 @@ export interface AppContextType {
   setSearchQuery: (value: string) => void;
   tempQuery: string;
   setTempQuery: (value: string) => void;
+  calculateChapterTime: (chapter: ICourseContent) => string;
+  calculateCourseDuration: (course: ICuorse) => string;
+  totalLecturesInCourse: (course: ICuorse) => number;
 }
