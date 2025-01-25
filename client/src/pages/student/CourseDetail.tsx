@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ICuorse } from "../../context/types";
 import { useAppContext } from "../../context/useAppContext";
 import {
@@ -18,6 +18,7 @@ import YouTube from "react-youtube";
 import Loading from "../../components/student/Loading";
 
 const CourseDetail: React.FC = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [course, setCourse] = useState<ICuorse>({} as ICuorse);
@@ -207,6 +208,7 @@ const CourseDetail: React.FC = () => {
             {playerData ? (
               <div className="w-full h-96">
                 <YouTube
+                  key={playerData}
                   videoId={playerData}
                   opts={{
                     playerVars: {
@@ -249,7 +251,8 @@ const CourseDetail: React.FC = () => {
                   {currency}{" "}
                   {(course.discount
                     ? course.coursePrice * ((100 - course.discount) / 100)
-                    : course.coursePrice || 0).toFixed(2)}
+                    : course.coursePrice || 0
+                  ).toFixed(2)}
                 </p>
                 {course.discount && (
                   <div className="flex items-center gap-2">
@@ -286,7 +289,10 @@ const CourseDetail: React.FC = () => {
               </div>
 
               {isEnrolled ? (
-                <button className="w-full bg-green-700 text-white py-2 mt-5 rounded cursor-pointer">
+                <button
+                  className="w-full bg-green-700 text-white py-2 mt-5 rounded cursor-pointer"
+                  onClick={() => navigate(`/player/${course._id}`)}
+                >
                   Enrolled, Learn Now
                 </button>
               ) : (

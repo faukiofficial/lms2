@@ -1,6 +1,8 @@
 import React from "react";
 import { useAppContext } from "../../context/useAppContext";
 import { useNavigate } from "react-router-dom";
+import { Line } from "rc-progress";
+import Footer from "../../components/student/Footer";
 
 type Props = {};
 
@@ -29,7 +31,7 @@ const MyEnrollments = (props: Props) => {
           <h1 className="text-3xl font-semibold text-gray-800">
             My Enrollments
           </h1>
-          <table className="md:table-auto table-fixed w-full overflow-hidden border mt-10">
+          <table className="md:table-auto table-fixed w-full overflow-hidden border border-gray-500/20 mt-10">
             <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left max-sm:hidden">
               <tr>
                 <th className="p-3 font-semibold truncate">Course</th>
@@ -54,6 +56,15 @@ const MyEnrollments = (props: Props) => {
                       <p className="mb-1 max-sm:text-sm font-medium">
                         {course.courseTitle}
                       </p>
+                      <Line
+                        percent={
+                          (progressArray[index].lectureCompleted /
+                            progressArray[index].totalLectures) *
+                          100
+                        }
+                        strokeWidth={2}
+                        strokeColor="#3b82f6"
+                      />
                     </div>
                   </td>
                   <td className="px-4 py-3 max-sm:hidden">
@@ -67,11 +78,17 @@ const MyEnrollments = (props: Props) => {
                   <td className="px-4 py-3 max-sm:text-right">
                     {progressArray[index].lectureCompleted ===
                     progressArray[index].totalLectures ? (
-                      <button className="px-3 sm:px-5 py-1.5 sm:py-2 bg-green-700 max-sm:text-xs text-white cursor-pointer rounded">
+                      <button
+                        className="px-3 sm:px-5 py-1.5 sm:py-2 bg-green-700 max-sm:text-xs text-white cursor-pointer rounded"
+                        onClick={() => navigate(`/player/${course._id}`)}
+                      >
                         Completed
                       </button>
                     ) : (
-                      <button className="px-3 sm:px-5 py-1.5 sm:py-2 bg-blue-600 max-sm:text-xs text-white cursor-pointer rounded" onClick={() => navigate(`/player/${course._id}`)}>
+                      <button
+                        className="px-3 sm:px-5 py-1.5 sm:py-2 bg-blue-600 max-sm:text-xs text-white cursor-pointer rounded"
+                        onClick={() => navigate(`/player/${course._id}`)}
+                      >
                         On Going
                       </button>
                     )}
@@ -82,6 +99,8 @@ const MyEnrollments = (props: Props) => {
           </table>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
