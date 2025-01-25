@@ -33,7 +33,7 @@ const Player: React.FC = () => {
 
   return (
     <>
-      <div className="p-4 sm:p-10 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 md:px-30">
+      <div className="p-4 sm:p-10 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:px-30">
         {/* left */}
         <div className="text-gray-800 mt-10 lg:mt-0">
           <h2 className="text-2xl font-semibold">{course?.courseTitle}</h2>
