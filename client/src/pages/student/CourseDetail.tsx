@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ICuorse } from "../../context/types";
+import { IChapterContent, ICuorse } from "../../context/types";
 import { useAppContext } from "../../context/useAppContext";
 import {
   FaChevronDown,
@@ -26,7 +26,7 @@ const CourseDetail: React.FC = () => {
     {}
   );
   const [isEnrolled, setIsEnrolled] = useState<boolean>(true);
-  const [playerData, setPlayerData] = useState<string | null>(null);
+  const [playerData, setPlayerData] = useState<IChapterContent | null>(null);
 
   const {
     allCourses,
@@ -46,6 +46,10 @@ const CourseDetail: React.FC = () => {
     fetchCourse();
   }, [allCourses]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [playerData, course]);
+
   const toggleSection = (index: number) => {
     setOpenSection((prevOpenSection) => ({
       ...prevOpenSection,
@@ -53,14 +57,16 @@ const CourseDetail: React.FC = () => {
     }));
   };
 
+  console.log(course);
+
   return (
     <>
       {course ? (
-        <div className="relative flex md:flex-row flex-col-reverse gap-10 items-start justify-between px-4 sm:px-10 md:px-14 lg:px-30 md:pt-20 pt-10 text-left">
+        <div className="relative flex xl:flex-row flex-col-reverse gap-10 items-center xl:items-start px-4 sm:px-10 md:px-14 lg:px-30 md:pt-20 pt-10 text-left">
           <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-100/70"></div>
 
           {/* left */}
-          <div className="max-w-xl text-gray-500 z-10 space-y-2">
+          <div className="w-full text-gray-500 z-10 space-y-2">
             <h1 className="ms:text-4xl text-3xl font-semibold text-gray-800">
               {course?.courseTitle}
             </h1>
@@ -115,7 +121,7 @@ const CourseDetail: React.FC = () => {
               <div className="pt-5">
                 {course.courseContent?.map((chapter, index) => (
                   <div
-                    key={index}
+                    key={chapter.chapterId}
                     className="border border-gray-300 bg-white mb-2 rounded"
                   >
                     <div
@@ -129,7 +135,7 @@ const CourseDetail: React.FC = () => {
                           <FaChevronDown />
                         )}
                         <p className="font-medium md:text-base text-sm">
-                          {chapter.chapterTitle}
+                          {chapter.chapterOrder}. {chapter.chapterTitle}
                         </p>
                       </div>
                       <p className="md:text-base text-sm">
@@ -155,7 +161,7 @@ const CourseDetail: React.FC = () => {
                                   <FaPlayCircle />
                                 </div>
                                 <p className="font-medium md:text-base text-sm">
-                                  {lecture.lectureTitle}
+                                  {lecture.lectureOrder}. {lecture.lectureTitle}
                                 </p>
                               </div>
                               <div className="flex items-center justify-end gap-2 w-full pr-3">
@@ -163,10 +169,7 @@ const CourseDetail: React.FC = () => {
                                   <p
                                     className="md:text-base text-sm text-blue-500 cursor-pointer"
                                     onClick={() =>
-                                      setPlayerData(
-                                        lecture.lectureUrl.split("/").pop() ||
-                                          ""
-                                      )
+                                      setPlayerData(lecture as IChapterContent)
                                     }
                                   >
                                     Preview
@@ -204,18 +207,18 @@ const CourseDetail: React.FC = () => {
           </div>
 
           {/* right */}
-          <div className="z-10 text-gray-800 rounded-t md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px] max-w-[420px] shadow-xl">
+          <div className="xl:sticky xl:top-10 xl:right-0 z-10 text-gray-800 rounded-t md:rounded-none overflow-hidden bg-white w-full max-w-[700px] xl:max-w-[420px] shadow-xl">
             {playerData ? (
-              <div className="w-full h-96">
+              <div className="w-full">
                 <YouTube
-                  key={playerData}
-                  videoId={playerData}
+                  key={playerData?.lectureUrl?.split("/").pop()}
+                  videoId={playerData?.lectureUrl?.split("/").pop() || ""}
                   opts={{
                     playerVars: {
                       autoplay: 1,
                     },
                   }}
-                  iframeClassName="w-full aspect-video"
+                  iframeClassName="w-full aspect-video h-full"
                 />
               </div>
             ) : (
@@ -229,8 +232,8 @@ const CourseDetail: React.FC = () => {
             {playerData && (
               <div className="flex items-center justify-end">
                 <span
-                  className="text-sm px-5 mt-[-20px] text-right cursor-pointer text-red-500 hover:underline"
-                  onClick={() => setPlayerData("")}
+                  className="text-sm px-5 mt-2 text-right cursor-pointer text-red-500 hover:underline"
+                  onClick={() => setPlayerData(null)}
                 >
                   End Preview
                 </span>

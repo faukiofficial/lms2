@@ -5,9 +5,13 @@ import { dummyCourses, dummyTestimonial } from "../assets/assets";
 import { useParams } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 
-export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
-  props
-) => {
+type AppContextProviderProps = {
+  children: React.ReactNode;
+};
+
+export const AppContextProvider: React.FC<AppContextProviderProps> = ({
+  children,
+}) => {
   const currency = import.meta.env.VITE_CURRENCY;
 
   const { input } = useParams();
@@ -40,37 +44,37 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     return Number(averageRating.toFixed(1));
   };
 
-  const calculateChapterTime = (chapter : ICourseContent) => {
+  const calculateChapterTime = (chapter: ICourseContent) => {
     let time = 0;
 
     chapter.chapterContent?.forEach((content) => {
       time += content.lectureDuration || 0;
-    })
+    });
 
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
-  }
+  };
 
-  const calculateCourseDuration = (course : ICuorse) => {
+  const calculateCourseDuration = (course: ICuorse) => {
     let time = 0;
 
     course.courseContent?.forEach((chapter) => {
       chapter.chapterContent?.forEach((content) => {
         time += content.lectureDuration || 0;
-      })
-    })
+      });
+    });
 
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
-  }
+  };
 
-  const totalLecturesInCourse = (course : ICuorse) => {
+  const totalLecturesInCourse = (course: ICuorse) => {
     let lectures = 0;
 
     course.courseContent?.forEach((chapter) => {
       lectures += chapter.chapterContent?.length || 0;
-    })
+    });
 
     return lectures;
-  }
+  };
 
   const fetchUserEnrolledCourses = async (): Promise<void> => {
     setEnrolledCourses(dummyCourses as ICuorse[]);
@@ -96,9 +100,7 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
     calculateChapterTime,
     calculateCourseDuration,
     totalLecturesInCourse,
-    enrolledCourses
+    enrolledCourses,
   };
-  return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

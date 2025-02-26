@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Line } from "rc-progress";
 import Footer from "../../components/student/Footer";
 
-type Props = {};
-
-const MyEnrollments = (props: Props) => {
+const MyEnrollments: React.FC = () => {
   const { enrolledCourses, calculateCourseDuration } = useAppContext();
   const navigate = useNavigate();
 

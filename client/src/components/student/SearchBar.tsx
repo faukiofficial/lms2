@@ -6,15 +6,19 @@ import { useAppContext } from "../../context/useAppContext";
 const SearchBar: React.FC = () => {
   const navigate = useNavigate();
 
-  const { searchQuery, setSearchQuery, tempQuery, setTempQuery } = useAppContext();
-  
+  const { searchQuery, setSearchQuery, tempQuery, setTempQuery } =
+    useAppContext();
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate(`/course-list/${searchQuery}`);
-  }
+  };
 
   return (
-    <form onSubmit={handleSearch} className="max-w-lg w-full md:h-12 h-10 flex items-center bg-white border border-gray-500/30 rounded">
+    <form
+      onSubmit={handleSearch}
+      className="max-w-lg w-full md:h-12 h-10 flex items-center bg-white border border-gray-500/30 rounded"
+    >
       <div className="md:px-3 px-2 text-gray-600 text-2xl">
         <IoIosSearch />
       </div>

@@ -13,13 +13,10 @@ import StudentsEnrolled from "./pages/educator/StudentsEnrolled";
 import Navbar from "./components/student/Navbar";
 
 function App() {
-
   const isEducatorRoute = useMatch("/educator/*");
   return (
     <div className="min-h-screen bg-white text-default">
-      {
-        !isEducatorRoute && <Navbar />
-      }
+      {!isEducatorRoute && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/course-list" element={<CoursesList />} />
@@ -30,7 +27,7 @@ function App() {
         <Route path="/loading/:path" element={<Loading />} />
 
         <Route path="/educator" element={<Educator />}>
-          <Route path="educator" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="add-course" element={<AddCourse />} />
           <Route path="my-courses" element={<MyCourses />} />
           <Route path="students-enrolled" element={<StudentsEnrolled />} />

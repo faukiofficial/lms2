@@ -9,7 +9,8 @@ import Footer from "../../components/student/Footer";
 
 const CoursesList: React.FC = () => {
   const navigate = useNavigate();
-  const { allCourses, searchQuery, setSearchQuery, setTempQuery } = useAppContext();
+  const { allCourses, searchQuery, setSearchQuery, setTempQuery } =
+    useAppContext();
   const [filteredCourses, setFilteredCourses] = useState<ICuorse[]>([]);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const CoursesList: React.FC = () => {
       }
     }
   }, [allCourses, searchQuery]);
-  
+
   return (
     <div className="min-h-screen">
       <div className="relative px-4 md:px-8 lg:px-30 text-left pt-12">

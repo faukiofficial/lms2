@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IChapterContent, ICuorse } from "../../context/types";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../../context/useAppContext";
-import {
-  FaCheckCircle,
-  FaPlayCircle,
-} from "react-icons/fa";
+import { FaCheckCircle, FaPlayCircle } from "react-icons/fa";
 import humanizeDuration from "humanize-duration";
 import YouTube from "react-youtube";
 import Footer from "../../components/student/Footer";
@@ -17,10 +14,7 @@ const Player: React.FC = () => {
   const [course, setCourse] = useState<ICuorse>({} as ICuorse);
   const [playerData, setPlayerData] = useState<IChapterContent | null>(null);
 
-  const {
-    enrolledCourses,
-    calculateChapterTime
-  } = useAppContext();
+  const { enrolledCourses, calculateChapterTime } = useAppContext();
 
   const fetchCourse = async () => {
     const course = enrolledCourses.find((c) => c._id === id);
@@ -31,11 +25,17 @@ const Player: React.FC = () => {
     fetchCourse();
   }, [enrolledCourses]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [playerData]);
+
+  console.log(course);
+
   return (
     <>
-      <div className="p-4 sm:p-10 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-10 lg:px-30">
+      <div className="p-4 sm:p-10 flex flex-col-reverse xl:flex-row w-full min-h-[calc(100vh-430px)] gap-10 items-center xl:items-start">
         {/* left */}
-        <div className="text-gray-800 mt-10 lg:mt-0">
+        <div className="text-gray-800 mt-10 lg:mt-0 w-full xl:max-w-[600px]">
           <h2 className="text-2xl font-semibold">{course?.courseTitle}</h2>
           <p className="text-sm text-gray-600">By {course?.educator?.name}</p>
 
@@ -46,12 +46,10 @@ const Player: React.FC = () => {
                   key={index}
                   className="border border-gray-300 bg-white mb-2 rounded"
                 >
-                  <div
-                    className="flex items-center justify-between p-3"
-                  >
+                  <div className="flex items-center justify-between p-3">
                     <div className="flex items-center gap-2">
                       <p className="font-medium md:text-base text-sm">
-                        {chapter.chapterTitle}
+                        {chapter.chapterOrder}. {chapter.chapterTitle}
                       </p>
                     </div>
                     <p className="md:text-base text-sm">
@@ -60,14 +58,15 @@ const Player: React.FC = () => {
                     </p>
                   </div>
 
-                  <div
-                    className={`overflow-hidden`}
-                  >
+                  <div className="overflow-hidden">
                     <ul className="list-disc md:pl-10 pl-4 py-2 text-gray-600 border-t border-gray-300">
                       {chapter.chapterContent?.map((lecture, index) => (
                         <li key={index} className="flex items-start gap-2 py-1">
                           <div className="flex items-center gap-2 justify-between w-full">
-                            <div className="flex items-center gap-2 w-full cursor-pointer" onClick={() => setPlayerData(lecture)}>
+                            <div
+                              className="flex items-center gap-2 w-full cursor-pointer"
+                              onClick={() => setPlayerData(lecture)}
+                            >
                               <div className="">
                                 {lecture ? (
                                   <div className="text-blue-500">
@@ -77,8 +76,14 @@ const Player: React.FC = () => {
                                   <FaPlayCircle />
                                 )}
                               </div>
-                              <p className="font-medium md:text-base text-sm hover:font-bold">
-                                {lecture.lectureTitle}
+                              <p
+                                className={`font-medium md:text-base text-sm hover:font-bold ${
+                                  lecture.lectureId === playerData?.lectureId
+                                    ? "text-blue-500"
+                                    : ""
+                                }`}
+                              >
+                                {lecture.lectureOrder}. {lecture.lectureTitle}
                               </p>
                             </div>
                             <div className="flex items-center justify-end gap-2 w-full pr-3">
@@ -108,26 +113,26 @@ const Player: React.FC = () => {
         </div>
 
         {/* right */}
-        <div>
+        <div className="w-full mt-0 xl:mt-9">
           {playerData ? (
-            <div className="w-full h-96">
-              <p className="text-lg font-medium mb-2">
+            <div>
+              <p className="text-2xl font-medium mb-2 text-center">
                 {playerData.lectureTitle}
               </p>
               <YouTube
-                key={playerData}
+                key={playerData.lectureId}
                 videoId={playerData.lectureUrl.split("/").pop()}
                 opts={{
                   playerVars: {
                     autoplay: 1,
                   },
                 }}
-                iframeClassName="w-full aspect-video"
+                iframeClassName="w-full aspect-video h-full  border border-gray-300"
               />
 
               <div className="flex justify-end mt-2">
                 <button className="bg-blue-500 px-4 py-2 rounded text-white cursor-pointer">
-                  Mark as Completed
+                  Complete & Continue
                 </button>
               </div>
             </div>

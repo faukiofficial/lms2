@@ -4,8 +4,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { UserButton, useUser, useClerk } from "@clerk/clerk-react";
 import { useAppContext } from "../../context/useAppContext.ts";
 
-
-const Navbar : React.FC = () => {
+const Navbar: React.FC = () => {
   const { isEducator } = useAppContext();
   const navigate = useNavigate();
   const isCourseListPage = window.location.pathname.includes("/course-list");
@@ -33,7 +32,7 @@ const Navbar : React.FC = () => {
           {user && (
             <>
               <button
-                onClick={() => navigate("/educator")}
+                onClick={() => navigate("/educator/dashboard")}
                 className="cursor-pointer"
               >
                 {isEducator ? "Educator Dashboard" : "Become Educator"}
@@ -49,7 +48,7 @@ const Navbar : React.FC = () => {
             onClick={() => openSignIn()}
             className="bg-blue-500 px-6 py-2 rounded-full text-white cursor-pointer"
           >
-            Create Account
+            Login
           </button>
         )}
       </div>
